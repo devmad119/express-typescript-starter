@@ -1,0 +1,17 @@
+{
+    "env": "production",
+    "dbConfig": {
+        "host": "localhost",
+        "database": "supremacy-sms",
+        "port": 27017
+    },
+    "secretKey": "secretKey",
+    "log": {
+        "format": "combined",
+        "dir": "../logs"
+    },
+    "cors": {
+        "origin": "your.domain.com",
+        "credentials": true
+    }
+}
