@@ -9,7 +9,7 @@ class AuthController {
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.authService.signup(userData);
+      const signUpUserData: User = await this.authService.signUp(userData);
 
       res.status(201).json({ data: signUpUserData, message: 'signup' });
     } catch (error) {
@@ -17,20 +17,20 @@ class AuthController {
     }
   };
 
-  public logIn = async (req: Request, res: Response, next: NextFunction) => {
+  public signIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const accountData: CheckAccountDto = req.body;
-      const { token, findUser } = await this.authService.login(accountData);
+      const { token, findUser } = await this.authService.singIn(accountData);
 
-      res.status(200).json({ data: findUser, token, message: 'login' });
+      res.status(200).json({ data: findUser, token, message: 'signin' });
     } catch (error) {
       next(error);
     }
   };
 
-  public logOut = async (req: Request, res: Response, next: NextFunction) => {
+  public signOut = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.status(200).json({ message: 'logout' });
+      res.status(200).json({ message: 'signout' });
     } catch (error) {
       next(error);
     }

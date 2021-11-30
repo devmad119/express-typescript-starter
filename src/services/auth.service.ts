@@ -11,7 +11,7 @@ import { isEmpty, validateEmail } from '@utils/util';
 class AuthService {
   public users = userModel;
 
-  public async signup(userData: CreateUserDto): Promise<User> {
+  public async signUp(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const findUser: User = await this.users.findOne({ $or: [{ email: userData.email }, { userName: userData.userName }] });
@@ -23,7 +23,7 @@ class AuthService {
     return createUserData;
   }
 
-  public async login(accountData: CheckAccountDto): Promise<{ token: string; findUser: User }> {
+  public async singIn(accountData: CheckAccountDto): Promise<{ token: string; findUser: User }> {
     if (isEmpty(accountData)) throw new HttpException(400, "You're not accountData");
 
     let findUser: User = {
