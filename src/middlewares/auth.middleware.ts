@@ -1,11 +1,11 @@
 import config from 'config';
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
 import { HttpException } from '@exceptions/HttpException';
-import { DataStoredInToken, RequestWithUser } from '@interfaces/auth.interface';
+import { DataStoredInToken } from '@interfaces/auth.interface';
 import userModel from '@models/users.model';
 
-const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const Authorization = req.header('Authorization').split('Supremacy ')[1] || null;
 
@@ -16,7 +16,6 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
       const findUser = await userModel.findById(userId);
 
       if (findUser) {
-        req.user = findUser;
         next();
       } else {
         next(new HttpException(401, 'Wrong authentication token'));
