@@ -1,7 +1,6 @@
 process.env['NODE_CONFIG_DIR'] = __dirname + '/configs';
 
 import compression from 'compression';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import config from 'config';
 import express from 'express';
@@ -62,7 +61,6 @@ class App {
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cookieParser());
   }
 
   private initializeRoutes(routes: Routes[]) {

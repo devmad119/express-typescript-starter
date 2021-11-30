@@ -8,8 +8,13 @@ export class CreateUserDto {
   public password: string;
 
   @IsString()
-  public firstName: string;
+  public userName: string;
+}
+
+export class CheckAccountDto {
+  @IsString()
+  public account: string;
 
   @IsString()
-  public lastName: string;
+  public password: string;
 }

@@ -11,14 +11,10 @@ const userSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  firstName: {
+  userName: {
     type: String,
     required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
+  }
 });
 
 const userModel = model<User & Document>('User', userSchema);
