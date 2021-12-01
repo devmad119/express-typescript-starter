@@ -30,6 +30,7 @@ class AuthService {
       _id: '',
       email: '',
       password: '',
+      userName: '',
     };
 
     if (validateEmail(accountData.account)) findUser = await this.users.findOne({ email: accountData.account });
@@ -46,7 +47,7 @@ class AuthService {
   }
 
   public createToken(user: User): TokenData {
-    const dataStoredInToken: DataStoredInToken = { _id: user._id };
+    const dataStoredInToken: DataStoredInToken = { _id: user._id, email: user.email, userName: user.userName };
     const secretKey: string = config.get('secretKey');
     const expiresIn: number = 60 * 60;
 

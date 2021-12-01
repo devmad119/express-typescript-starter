@@ -11,7 +11,7 @@ class AuthController {
       const userData: CreateUserDto = req.body;
       const signUpUserData: User = await this.authService.signUp(userData);
 
-      res.status(201).json({ data: signUpUserData, message: 'signup' });
+      res.status(201).json({ data: signUpUserData, message: 'Success to sign up!' });
     } catch (error) {
       next(error);
     }
@@ -22,7 +22,7 @@ class AuthController {
       const accountData: CheckAccountDto = req.body;
       const { token, findUser } = await this.authService.singIn(accountData);
 
-      res.status(200).json({ data: findUser, token, message: 'signin' });
+      res.status(200).json({ data: findUser, token, message: 'Success to sign in!' });
     } catch (error) {
       next(error);
     }
@@ -30,7 +30,7 @@ class AuthController {
 
   public signOut = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.status(200).json({ message: 'signout' });
+      res.status(200).json({ message: 'Success to sign out!' });
     } catch (error) {
       next(error);
     }
