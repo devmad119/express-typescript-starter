@@ -14,8 +14,11 @@ class AuthService {
   public async signUp(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
-    const findUser: User = await this.users.findOne({ $or: [{ email: userData.email }, { userName: userData.userName }] });
-    if (findUser) throw new HttpException(409, `You're email ${userData.email} or userName ${userData.userName} already exists`);
+    const email = String(userData.email).trim().toLowerCase();
+    const userName = String(userData.userName).trim().toLowerCase();
+
+    const findUser: User = await this.users.findOne({ $or: [{ email: email }, { userName: userName }] });
+    if (findUser) throw new HttpException(409, `You're email ${email} or userName ${userName} already exists`);
 
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const createUserData: User = await this.users.create({ ...userData, password: hashedPassword });
@@ -26,6 +29,8 @@ class AuthService {
   public async singIn(accountData: CheckAccountDto): Promise<{ token: string; findUser: User }> {
     if (isEmpty(accountData)) throw new HttpException(400, "You're not accountData");
 
+    const account = String(accountData.account).trim().toLowerCase();
+
     let findUser: User = {
       _id: '',
       email: '',
@@ -33,10 +38,10 @@ class AuthService {
       userName: '',
     };
 
-    if (validateEmail(accountData.account)) findUser = await this.users.findOne({ email: accountData.account });
-    else findUser = await this.users.findOne({ userName: accountData.account });
+    if (validateEmail(account)) findUser = await this.users.findOne({ email: account });
+    else findUser = await this.users.findOne({ userName: account });
 
-    if (!findUser) throw new HttpException(409, `You're account ${accountData.account} not found`);
+    if (!findUser) throw new HttpException(409, `You're account ${account} not found`);
 
     const isPasswordMatching: boolean = await bcrypt.compare(accountData.password, findUser.password);
     if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
