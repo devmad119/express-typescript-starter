@@ -5,9 +5,11 @@ import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken } from '@interfaces/auth.interface';
 import userModel from '@models/users.model';
 
+const prefixToken = "Supremacy";
+
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const Authorization = req.header('Authorization').split('Supremacy ')[1] || null;
+    const Authorization = req.header('Authorization').split(`${prefixToken} `)[1] || null;
 
     if (Authorization) {
       const secretKey: string = config.get('secretKey');
