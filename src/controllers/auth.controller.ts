@@ -28,7 +28,7 @@ class AuthController {
     }
   };
 
-  public signOut = async (req: Request, res: Response, next: NextFunction) => {
+  public signOut = async (res: Response, next: NextFunction) => {
     try {
       res.status(200).json({ message: 'Success to sign out!' });
     } catch (error) {
